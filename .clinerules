@@ -1,0 +1,84 @@
+# 🎓 ClineRules — Proyecto DisneyVerse (Frontend)
+
+## 📋 Metadatos del Proyecto
+
+- **Curso:** Bootcamp FullStack / Desarrollo Web
+- **Módulo:** Frontend (React)
+- **Tema:** Aplicación React de personajes Disney con Axios, dos páginas, presentación freelance y despliegue en Vercel
+- **Autor:** Alumno del Bootcamp
+- **Fecha:** Septiembre 2026
+
+---
+
+## 🛠 Stack Tecnológico
+
+### Frontend
+- [x] React 19 (con Vite)
+- [x] Axios (consumo de la API Disney)
+- [x] React Router (2 páginas: / y /about)
+- [x] CSS puro con variables CSS (mobile-first)
+- [x] Despliegue: Vercel
+
+### Backend
+- [x] No aplica (proyecto frontend que consume una API pública)
+- [x] API utilizada: https://api.disneyapi.dev (GET /character, GET /characters/:id)
+
+### DevOps / Herramientas
+- [x] Git + GitHub (repo: Mltiformacionjose/Proyecto-Frontend)
+- [x] Node.js + npm
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+/
+├── index.html                 # HTML raíz
+├── package.json               # Dependencias y scripts
+├── vite.config.js             # Configuración de Vite
+├── vercel.json                # Rewrites SPA para Vercel
+├── .gitignore
+├── .clinerules                # Estas reglas
+├── README.md                  # Documentación
+└── src/
+    ├── main.jsx               # Punto de entrada + BrowserRouter
+    ├── App.jsx                # Rutas y layout (Header/Footer)
+    ├── components/            # Header, Footer, CharacterCard, Pagination,
+    │                          # SearchBar, LoadingSpinner, ErrorMessage
+    ├── pages/                 # CharactersPage, AboutPage, NotFoundPage
+    ├── services/              # api.js (axios) y characterService.js
+    └── styles/main.css        # Estilos con variables CSS
+```
+
+---
+
+## 📐 Estándares de Código
+
+- HTML semántico y un solo `<h1>` por página
+- Clases CSS con metodología BEM (`header__logo`, `card__image`...)
+- Variables CSS para colores, fuentes y espaciados
+- Diseño responsive mobile-first (media queries ≥640px y ≥1024px)
+- JavaScript/JSX: `const` y `let` (nunca `var`), arrow functions, `===`
+- Nombres descriptivos en inglés (`fetchCharacters`, `onPageChange`...)
+- Comentarios JSDoc en funciones importantes
+- Manejo de errores con try/catch en las llamadas de red
+- `async/await` para operaciones asíncronas (Axios)
+
+---
+
+## 🤖 Instrucciones para Cline
+
+1. Explica qué vas a hacer antes de escribir código
+2. Respeta la estructura del proyecto, especialmente `src/components`, `src/pages` y `src/services`
+3. Escribe las explicaciones en español y el código en inglés
+4. No instales dependencias sin confirmación previa
+5. No subas API keys ni datos sensibles a GitHub
+6. Valida con `npm run build` antes de cada commit
+
+---
+
+## ✅ Git
+
+- Rama principal: `main`
+- Mensajes de commit en español con prefijo semántico (`feat:`, `fix:`, `docs:`, `chore:`, `style:`)
+- Un commit por cambio atómico
