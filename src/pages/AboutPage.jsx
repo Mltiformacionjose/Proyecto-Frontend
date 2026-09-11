@@ -50,7 +50,7 @@ function AboutPage() {
         <div className="about__block about__block--contact">
           <h2>¿Tienes un proyecto en mente?</h2>
           <p>Hablemos: respondo rápido y sin compromiso.</p>
-          <a className="about__button" href="mailto:contacto@tudominio.com">
+          <a className="about__button" href="https://github.com/Mltiformacionjose"  >
             Contáctame
           </a>
         </div>
