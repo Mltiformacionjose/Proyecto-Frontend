@@ -117,4 +117,4 @@ vercel --prod
 
 ## 👤 Autor
 
-Proyecto realizado por alumno del Bootcamp FullStack — módulo Frontend React.
+Proyecto realizado por mi, un alumno del Bootcamp FullStack de Factoria 5.
