@@ -15,10 +15,13 @@ function CharactersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [allCharacters, setAllCharacters] = useState([]);
+  const [catalogLoading, setCatalogLoading] = useState(false);
+  const [catalogError, setCatalogError] = useState("");
 
   /**
-   * Carga los personajes de la página indicada usando el servicio Axios.
-   * @param {number} currentPage - Página a solicitar.
+   * Loads the characters of the requested page using the Axios service.
+   * @param {number} currentPage - Page to request.
    */
   const fetchCharacters = async (currentPage) => {
     setLoading(true);
@@ -38,10 +41,37 @@ function CharactersPage() {
     fetchCharacters(page);
   }, [page]);
 
-  // Filtra la página actual por el término buscado
-  const filteredCharacters = characters.filter((character) =>
-    character.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  /**
+   * Loads the full catalog once to allow global search by name
+   * (the API does not filter by name).
+   */
+  const loadAllCharacters = async () => {
+    setCatalogLoading(true);
+    setCatalogError("");
+    try {
+      const all = await characterService.getAllCharacters();
+      setAllCharacters(all);
+    } catch {
+      setCatalogError(
+        "No se pudo cargar el catálogo completo. Prueba con menos letras."
+      );
+    } finally {
+      setCatalogLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadAllCharacters();
+  }, []);
+
+  // Global search: if there is a term, filter the full catalog;
+  // otherwise show the characters of the current page
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+  const filteredCharacters = normalizedSearchTerm
+    ? allCharacters.filter((character) =>
+        character.name.toLowerCase().includes(normalizedSearchTerm)
+      )
+    : characters;
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -62,14 +92,19 @@ function CharactersPage() {
       {loading && <LoadingSpinner />}
 
       {error && (
-        <ErrorMessage
-          message={error}
-          onRetry={() => fetchCharacters(page)}
-        />
+        <ErrorMessage message={error} onRetry={() => fetchCharacters(page)} />
       )}
 
       {!loading && !error && (
         <>
+          {catalogLoading && normalizedSearchTerm && (
+            <p className="page__empty">Cargando catálogo completo...</p>
+          )}
+
+          {catalogError && normalizedSearchTerm && (
+            <ErrorMessage message={catalogError} />
+          )}
+
           {filteredCharacters.length > 0 ? (
             <div className="cards-grid">
               {filteredCharacters.map((character) => (
@@ -82,11 +117,13 @@ function CharactersPage() {
             </p>
           )}
 
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+          {!normalizedSearchTerm && (
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
         </>
       )}
     </section>

@@ -203,6 +203,18 @@ img {
   background-color: var(--color-border);
 }
 
+.card__image--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eef2ff, #c7d2fe);
+}
+
+.card__image-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
 .card__body {
   padding: 16px;
 }
